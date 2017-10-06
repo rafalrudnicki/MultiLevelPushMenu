@@ -61,11 +61,8 @@
 		this.el = el;
 		this.trigger = trigger;
 		this.options = extend( this.defaults, options );
-		// support 3d transforms
-		this.support = Modernizr.csstransforms3d;
-		if( this.support ) {
-			this._init();
-		}
+                this._init();
+
 	}
 
 	mlPushMenu.prototype = {
