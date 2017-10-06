@@ -36,7 +36,7 @@
 	function getLevelDepth( e, id, waypoint, cnt ) {
 		cnt = cnt || 0;
 		if ( e.id.indexOf( id ) >= 0 ) return cnt;
-		if( classie.has( e, waypoint ) ) {
+		if( window.classie.has( e, waypoint ) ) {
 			++cnt;
 		}
 		return e.parentNode && getLevelDepth( e.parentNode, id, waypoint, cnt );
@@ -51,7 +51,7 @@
 
 	// returns the closest element to 'e' that has class "classname"
 	function closest( e, classname ) {
-		if( classie.has( e, classname ) ) {
+		if( window.classie.has( e, classname ) ) {
 			return e;
 		}
 		return e.parentNode && closest( e.parentNode, classname );
@@ -94,7 +94,7 @@
 			// event type (if mobile use touch events)
 			this.eventtype = mobilecheck() ? 'touchstart' : 'click';
 			// add the class mp-overlap or mp-cover to the main element depending on options.type
-			classie.add( this.el, 'mp-' + this.options.type );
+			window.classie.add( this.el, 'mp-' + this.options.type );
 			// initialize / bind the necessary events
 			this._initEvents();
 		},
@@ -135,7 +135,7 @@
 						var level = closest( el, 'mp-level' ).getAttribute( 'data-level' );
 						if( self.level <= level ) {
 							ev.stopPropagation();
-							classie.add( closest( el, 'mp-level' ), 'mp-level-overlay' );
+							window.classie.add( closest( el, 'mp-level' ), 'mp-level-overlay' );
 							self._openMenu( subLevel );
 						}
 					} );
@@ -184,25 +184,25 @@
 				// need to reset the translate value for the level menus that have the same level depth and are not open
 				for( var i = 0, len = this.levels.length; i < len; ++i ) {
 					var levelEl = this.levels[i];
-					if( levelEl != subLevel && !classie.has( levelEl, 'mp-level-open' ) ) {
+					if( levelEl != subLevel && !window.classie.has( levelEl, 'mp-level-open' ) ) {
 						this._setTransform( 'translate3d(-100%,0,0) translate3d(' + -1*levelFactor + 'px,0,0)', levelEl );
 					}
 				}
 			}
 			// add class mp-pushed to main wrapper if opening the first time
 			if( this.level === 1 ) {
-				classie.add( this.wrapper, 'mp-pushed' );
+				window.classie.add( this.wrapper, 'mp-pushed' );
 				this.open = true;
 			}
 			// add class mp-level-open to the opening level element
-			classie.add( subLevel || this.levels[0], 'mp-level-open' );
+			window.classie.add( subLevel || this.levels[0], 'mp-level-open' );
 		},
 		// close the menu
 		_resetMenu : function() {
 			this._setTransform('translate3d(0,0,0)');
 			this.level = 0;
 			// remove class mp-pushed from main wrapper
-			classie.remove( this.wrapper, 'mp-pushed' );
+			window.classie.remove( this.wrapper, 'mp-pushed' );
 			this._toggleLevels();
 			this.open = false;
 		},
@@ -224,11 +224,11 @@
 			for( var i = 0, len = this.levels.length; i < len; ++i ) {
 				var levelEl = this.levels[i];
 				if( levelEl.getAttribute( 'data-level' ) >= this.level + 1 ) {
-					classie.remove( levelEl, 'mp-level-open' );
-					classie.remove( levelEl, 'mp-level-overlay' );
+					window.classie.remove( levelEl, 'mp-level-open' );
+					window.classie.remove( levelEl, 'mp-level-overlay' );
 				}
 				else if( Number( levelEl.getAttribute( 'data-level' ) ) == this.level ) {
-					classie.remove( levelEl, 'mp-level-overlay' );
+					window.classie.remove( levelEl, 'mp-level-overlay' );
 				}
 			}
 		}
