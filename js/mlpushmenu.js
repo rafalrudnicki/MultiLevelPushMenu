@@ -177,6 +177,7 @@ define("mlpushmenu", [
             });
         },
         _openMenu: function (subLevel) {
+            classie.add(self.trigger, 'active');
             // increment level depth
             ++this.level;
 
@@ -207,6 +208,7 @@ define("mlpushmenu", [
         },
         // close the menu
         _resetMenu: function () {
+            classie.remove(self.trigger, 'active');
             this._setTransform('translate3d(0,0,0)');
             this.level = 0;
             // remove class mp-pushed from main wrapper
@@ -242,4 +244,3 @@ define("mlpushmenu", [
     }
     return mlPushMenu;
 });
-
